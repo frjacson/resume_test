@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 偏函数
+      const partial = (fn, ...args) => {
+        return (...arg) => {
+          return fn(...args, arg);
+        };
+      };
+
+      function add(a, b, c) {
+        return a + b + c;
+      }
+      let partialAdd = partial(add, 1);
+      partialAdd(2, 3);
+    </script>
+  </body>
+</html>

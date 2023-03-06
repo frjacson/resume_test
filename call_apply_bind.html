@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      Function.prototype.luckyCall = function (ctx, ...args) {
+        // 将方法挂载到传入的ctx上
+        // 将挂载以后的方法进行调用
+        // 将添加的属性删除
+        ctx.fn = this;
+        ctx.fn(...args);
+        delete ctx.fn;
+      };
+      function show(...args) {
+        console.log(this);
+        console.log(args);
+      }
+      show.luckyCall({ name: "qiweikai" }, "name1", "name2", "name3");
+
+      //apply
+      Function.prototype.luckyApply = function (ctx, args = []) {
+        ctx.fn = this;
+        ctx.fn(...args);
+        delete ctx.fn;
+      };
+
+      //bind
+      Function.prototype.luckyBind = function (ctx, ...args1) {
+        return (...args2) => {
+          ctx.fn = this;
+          ctx.fn(...args1.concat(args2));
+          delete ctx.fn;
+        };
+      };
+    </script>
+  </body>
+</html>

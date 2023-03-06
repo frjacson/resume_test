@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //ES5实现
+      function unique(arr) {
+        var res = arr.filter((item, index, array) => {
+          console.log(item, index, array);
+          return array.indexOf(item) === index;
+        });
+        return res;
+      }
+      arr = unique([1, 1, 32, 32, 1, 3]);
+      console.log(arr);
+
+      // ES6实现
+      var unique = (arr) => [...new Set(arr)];
+    </script>
+  </body>
+</html>

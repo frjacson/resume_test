@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 实现数组forEach方法
+      // 接受一个回调函数，以及执行回调函数时，用作this指向的值
+      Array.prototype.forEach2 = function (fn, thisAg) {
+        for (let i = 0; i < this.length; i++) {
+          fn.call(thisAg, this[i], i, this);
+        }
+      };
+      [1, 2, 3].forEach2((item, index) => {
+        console.log(item, index);
+      }, this);
+    </script>
+  </body>
+</html>

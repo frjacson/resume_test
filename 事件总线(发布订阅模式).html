@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class EventEmitter {
+        constructor() {
+          this._events = {};
+        }
+        addListener(eventId, func) {
+          console.log(eventId);
+          const event = this._events[eventId];
+          if (!event) {
+            this._events[eventId] = [func];
+          } else {
+            this._events[eventId].push(func);
+          }
+        }
+        emit(eventId) {
+          const events = this._events[eventId];
+          if (!events) return;
+          for (let i = 0; i < events.length; i++) {
+            events[i].apply(this, Array.from(arguments).slice(1));
+          }
+        }
+        removeListner(eventId, func) {
+          const callbacks = this._events[eventId];
+          if (!callbacks) return;
+          for (let i = 0; i < callbacks.length; i++) {
+            if (callbacks[i] == func) {
+              callbacks.splice(i, 1);
+            }
+          }
+        }
+      }
+      let eventBus = new EventEmitter();
+      let func1 = function (name, age) {
+        console.log(name, age);
+      };
+      let func2 = function (name, age) {
+        console.log(`hello, ${name}, ${age}`);
+      };
+      eventBus.addListener("aaa", func1);
+      eventBus.addListener("bbb", func2);
+      eventBus.emit("aaa", "布兰", 12);
+    </script>
+  </body>
+</html>

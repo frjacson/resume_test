@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 函数柯里化
+      // function url_curring(protocol) {
+      //   return function (hostname, pathname) {
+      //     return `${protocol}${hostname}${pathname}`;
+      //   };
+      // }
+      // const url_https = url_curring("https: //");
+      const curry = (fn) => {
+        const args = []; //存储传入的参数
+        return function generator(...rest) {
+          if (rest.length === 0) {
+            //来到了最后一个括号
+            return fn(...args);
+          } else {
+            args.push(...rest);
+            return generator;
+          }
+        };
+      };
+
+      const add = (...args) => {
+        return args.reduce((a, b) => {
+          return a + b;
+        });
+      };
+      const curryValue = curry(add)(1)(2, 3)(3)();
+      console.log(curryValue);
+    </script>
+  </body>
+</html>

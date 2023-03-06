@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 获取所有图片
+      const imgList = document.querySelectorAll("img");
+      let index = 0;
+      function lazyLoad() {
+        //获取浏览器视口高度
+        const viewPortHeight = window.innerHeight;
+        for (let i = 0; i < imgList.length; i++) {
+          //用可视区域高度减去图片顶部距离可视区域顶部的高度
+          const distance =
+            viewPortHeight - imgList[i].getBoundingClientRect().top;
+          if (distance >= 0) {
+            imgList[i].src = imgList[i].getAttribute("data-src");
+            index = i + 1;
+          }
+        }
+      }
+      // 最好加个防抖函数
+      function debounce(fn, delay = 200) {
+        let timer = null;
+        return function (...args) {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        };
+      }
+      window.addEventListener("scroll", debounce(lazyload, 200));
+    </script>
+  </body>
+</html>

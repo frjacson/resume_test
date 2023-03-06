@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      Object.craete = function (proto, propertiesObject) {
+        function F() {}
+        F.prototype = proto;
+        if (propertiesObject) {
+          Object.defineProperties(F, propertiesObject);
+        }
+        var f = new F();
+        return f;
+      };
+    </script>
+  </body>
+</html>

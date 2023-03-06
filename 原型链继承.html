@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 原始的原型链
+      // function Father() {
+      //   this.color = "white";
+      // }
+      // Father.prototype.getColor = function () {
+      //   return this.color;
+      // };
+      // function Son() {}
+      // Son.prototype = new Father();
+      // let son = new Son();
+      // console.log(son.color);
+
+      // 借助构造函数实现的原型链
+      // function Father(name) {
+      //   this.name = name;
+      //   this.getName = function () {
+      //     return this.name;
+      //   };
+      // }
+      // function Son(name) {
+      //   Father.call(this, name);
+      // }
+      // Son.prototype = new Father();
+      // let xiaodong = new Son("xiaodong");
+      // console.log(xiaodong.name);
+
+      // 组合继承
+      function Father(name) {
+        this.name = name;
+      }
+      Father.prototype.getName = function () {
+        return this.name;
+      };
+      function Son(name, age) {
+        Father.call(this, name);
+        this.age = age;
+      }
+      // Son.prototype = new Father();
+      // Son.prototype.constructor = Son;
+      Son.prototype = Object.create(Father.prototype);
+      Son.prototype.constructor = Son;
+      console.log(Son.prototype);
+      let son = new Son("xiaodong", 24);
+
+      //组合继承调用了两次父类构造函数，可以用一个空函数f来解决这个问题
+      //将Son.prototype = new Father() 改成 Son.prototype = Object.create(Father.prototype)
+      //Son.prototype.constructor = Son;
+    </script>
+  </body>
+</html>

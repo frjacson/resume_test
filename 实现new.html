@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function _new(Ctor, ...args) {
+        //首先判断传过来的是不是一个构造器
+        if (!Ctor.hasOwnProperty("prototype")) {
+          throw new TypeError("Ctor is not a constructor");
+        }
+        // 创建一个空对象，将this指向这个空对象，并且对象的__proto__属性指向Ctor
+        let obj = Object.create(Ctor.prototype);
+        let result = Ctor.call(obj, ...args); //将this指向这个对象，并执行相对应的代码
+        // 返回这个对象
+        if (
+          result != null &&
+          (typeof result === "object" || typeof result === "function")
+        ) {
+          return result;
+        }
+        return obj;
+      }
+    </script>
+  </body>
+</html>
